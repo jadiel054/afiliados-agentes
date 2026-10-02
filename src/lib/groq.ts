@@ -34,7 +34,9 @@ function montarPromptPontuacao(
   dados: DadosProduto,
   config: ConfigAgente
 ): string {
-  return `Você é um analista especialista em produtos de afiliados no nicho "${config.nicho}".
+  const nicho = config.categorias?.join(", ") ?? "geral";
+
+  return `Você é um analista especialista em produtos de afiliados no nicho "${nicho}".
 
 Analise o produto abaixo e retorne APENAS um JSON válido (sem markdown, sem explicação fora do JSON) com a seguinte estrutura:
 
@@ -72,7 +74,7 @@ DADOS DO PRODUTO:
 ${JSON.stringify(dados, null, 2)}
 
 CONFIGURAÇÃO DO USUÁRIO:
-- Nicho: ${config.nicho}
+- Nicho / categorias: ${nicho}
 - Comissão mínima: ${config.comissao_minima}%
 - Valor máximo: ${config.valor_maximo}
 - Categorias preferidas: ${config.categorias?.join(", ") ?? "qualquer"}

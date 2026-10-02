@@ -40,19 +40,16 @@ export function getSupabase(): SupabaseClient {
 }
 
 /**
- * Busca a configuração ativa do agente para um usuário.
- * Se usuarioId for omitido, retorna a primeira config ativa encontrada.
+ * Busca a configuração do agente para um usuário.
+ * Se usuarioId for informado, filtra por usuario_id;
+ * senão retorna a primeira linha (limit 1).
  */
 export async function buscarConfigAgente(
   usuarioId?: string
 ): Promise<ConfigAgente | null> {
   const sb = getSupabase();
 
-  let query = sb
-    .from("config_agente")
-    .select("*")
-    .eq("ativo", true)
-    .limit(1);
+  let query = sb.from("config_agente").select("*").limit(1);
 
   if (usuarioId) {
     query = query.eq("usuario_id", usuarioId);

@@ -274,8 +274,7 @@ async function main(): Promise<void> {
     .filter((l) => l.length > 0 && (l.startsWith("http://") || l.startsWith("https://")));
 
   if (links.length === 0) {
-    console.log("Nenhum link válido recebido. Encerrando (cron sem links ou input vazio).");
-    // Não falha o workflow — apenas sai com sucesso
+    console.log("Nenhum link válido recebido. Encerrando (input vazio).");
     process.exit(0);
   }
 
@@ -292,13 +291,14 @@ async function main(): Promise<void> {
 
   if (!config) {
     console.error(
-      "Nenhuma config_agente ativa encontrada. Cadastre no painel antes de rodar o Caçador."
+      "Nenhuma config_agente encontrada. Cadastre no painel antes de rodar o Caçador."
     );
     process.exit(1);
   }
 
   const usuarioId = config.usuario_id;
-  console.log(`Usuário: ${usuarioId} | Nicho: ${config.nicho}`);
+  const nicho = config.categorias?.join(", ") ?? "geral";
+  console.log(`Usuário: ${usuarioId} | Nicho: ${nicho}`);
   console.log(
     `Filtros → comissão ≥ ${config.comissao_minima}% | valor ≤ R$ ${config.valor_maximo}`
   );

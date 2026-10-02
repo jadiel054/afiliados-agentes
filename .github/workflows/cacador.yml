@@ -1,10 +1,7 @@
 name: Agente Caçador
 
 on:
-  # Cron a cada 2 horas (UTC)
-  schedule:
-    - cron: "0 */2 * * *"
-  # Disparo manual com links colados
+  # Apenas disparo manual por enquanto (cron volta no Caçador v2)
   workflow_dispatch:
     inputs:
       links:
@@ -12,7 +9,7 @@ on:
         required: true
         type: string
       usuario_id:
-        description: "UUID do usuário (opcional — se vazio usa a primeira config ativa)"
+        description: "UUID do usuário (opcional — se vazio usa a primeira config)"
         required: false
         type: string
         default: ""
@@ -30,7 +27,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
 
       - name: Instalar dependências
         run: npm install --no-audit --no-fund

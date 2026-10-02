@@ -7,13 +7,17 @@
 export interface ConfigAgente {
   id: string;
   usuario_id: string;
-  nicho: string;
+  modo: string;
+  pontuacao_propor: number;
+  pontuacao_agir: number;
   comissao_minima: number;
   valor_maximo: number;
+  rodar_a_cada_horas: number;
+  max_produtos_dia: number;
+  horario_inicio: string | null;
+  horario_fim: string | null;
   categorias: string[] | null;
-  ativo: boolean;
-  created_at?: string;
-  updated_at?: string;
+  atualizado_em: string | null;
 }
 
 /** Dados extraídos de um link de produto (sem inventar o que não dá para saber). */
